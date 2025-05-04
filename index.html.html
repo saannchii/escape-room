@@ -1,0 +1,428 @@
+<html>
+<head>
+<title>index.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #e8bf6a;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #bababa;}
+.s3 { color: #a5c261;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+index.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;es&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Among Us - Misión</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;style&gt;</span>
+    <span class="s1">body {</span>
+      <span class="s1">background-color: #0a0a0a;</span>
+      <span class="s1">color: white;</span>
+      <span class="s1">font-family: 'Courier New', monospace;</span>
+      <span class="s1">display: flex;</span>
+      <span class="s1">flex-direction: column;</span>
+      <span class="s1">align-items: center;</span>
+      <span class="s1">justify-content: center;</span>
+      <span class="s1">height: 100vh;</span>
+      <span class="s1">margin: 0;</span>
+      <span class="s1">overflow: hidden;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#intro-video, #message-video, #game-video {</span>
+      <span class="s1">position: fixed;</span>
+      <span class="s1">top: 0;</span>
+      <span class="s1">left: 0;</span>
+      <span class="s1">width: 100vw;</span>
+      <span class="s1">height: 100vh;</span>
+      <span class="s1">object-fit: cover;</span>
+      <span class="s1">transform: scale(1.1);</span>
+      <span class="s1">z-index: -1;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#message-video, #game-video {</span>
+      <span class="s1">display: none;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.centered {</span>
+      <span class="s1">display: flex;</span>
+      <span class="s1">flex-direction: column;</span>
+      <span class="s1">align-items: center;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.envelope {</span>
+      <span class="s1">width: 180px;</span>
+      <span class="s1">cursor: pointer;</span>
+      <span class="s1">transition: transform 0.4s;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.envelope:hover {</span>
+      <span class="s1">transform: scale(1.05);</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.btn-pixel,</span>
+    <span class="s1">#start-button,</span>
+    <span class="s1">#restart-button {</span>
+      <span class="s1">font-family: 'Courier New', monospace;</span>
+      <span class="s1">font-size: 20px;</span>
+      <span class="s1">font-weight: bold;</span>
+      <span class="s1">color: white;</span>
+      <span class="s1">background-color: #ffcc00;</span>
+      <span class="s1">border: 3px solid #000;</span>
+      <span class="s1">padding: 12px 28px;</span>
+      <span class="s1">cursor: pointer;</span>
+      <span class="s1">box-shadow: 3px 3px 0 #000;</span>
+      <span class="s1">text-transform: uppercase;</span>
+      <span class="s1">letter-spacing: 1px;</span>
+      <span class="s1">margin-top: 20px;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#restart-button {</span>
+      <span class="s1">display: none;</span>
+      <span class="s1">position: absolute;</span>
+      <span class="s1">top: 50%;</span>
+      <span class="s1">left: 50%;</span>
+      <span class="s1">transform: translate(-50%, -50%);</span>
+      <span class="s1">z-index: 10;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#message-box {</span>
+      <span class="s1">display: none;</span>
+      <span class="s1">background-color: #fef4d3;</span>
+      <span class="s1">color: #111;</span>
+      <span class="s1">padding: 30px 20px;</span>
+      <span class="s1">border: 4px solid black;</span>
+      <span class="s1">width: 400px;</span>
+      <span class="s1">text-align: center;</span>
+      <span class="s1">border-radius: 4px;</span>
+      <span class="s1">margin-top: 20px;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#game-container {</span>
+      <span class="s1">display: none;</span>
+      <span class="s1">flex-direction: column;</span>
+      <span class="s1">align-items: center;</span>
+      <span class="s1">justify-content: center;</span>
+      <span class="s1">text-align: center;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#counter {</span>
+      <span class="s1">position: absolute;</span>
+      <span class="s1">top: 90px;</span>
+      <span class="s1">right: 80px;</span>
+      <span class="s1">font-size: 16px;</span>
+      <span class="s1">font-weight: bold;</span>
+      <span class="s1">color: #ccc;</span>
+      <span class="s1">transition: color 0.3s, font-size 0.3s;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.counter-flash {</span>
+      <span class="s1">color: lime !important;</span>
+      <span class="s1">animation: flash-green 1s ease;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@keyframes flash-green {</span>
+      <span class="s1">0% { transform: scale(1); }</span>
+      <span class="s1">50% { transform: scale(1.4); }</span>
+      <span class="s1">100% { transform: scale(1); }</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#timer {</span>
+      <span class="s1">font-size: 2em;</span>
+      <span class="s1">margin: 20px;</span>
+      <span class="s1">transition: color 0.3s, font-size 0.3s;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.red-flash {</span>
+      <span class="s1">animation: flash-red 1s infinite;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@keyframes flash-red {</span>
+      <span class="s1">0%, 100% { color: red; }</span>
+      <span class="s1">50% { color: white; }</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#light {</span>
+      <span class="s1">width: 20px;</span>
+      <span class="s1">height: 20px;</span>
+      <span class="s1">border-radius: 50%;</span>
+      <span class="s1">margin: 10px auto;</span>
+      <span class="s1">background-color: grey;</span>
+      <span class="s1">box-shadow: 0 0 20px transparent;</span>
+      <span class="s1">transition: all 0.3s ease;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#phrase-box {</span>
+      <span class="s1">margin-top: 30px;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">input {</span>
+      <span class="s1">padding: 14px;</span>
+      <span class="s1">width: 90%;</span>
+      <span class="s1">font-size: 1.2em;</span>
+      <span class="s1">margin: 15px 0;</span>
+      <span class="s1">border-radius: 8px;</span>
+      <span class="s1">border: 2px solid #ccc;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">button.submit {</span>
+      <span class="s1">padding: 10px 20px;</span>
+      <span class="s1">font-size: 1em;</span>
+      <span class="s1">background-color: #007bff;</span>
+      <span class="s1">border: none;</span>
+      <span class="s1">color: white;</span>
+      <span class="s1">border-radius: 8px;</span>
+      <span class="s1">cursor: pointer;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">button.submit:hover {</span>
+      <span class="s1">background-color: #0056b3;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.green-glow {</span>
+      <span class="s1">background-color: green !important;</span>
+      <span class="s1">box-shadow: 0 0 20px green;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.red-glow {</span>
+      <span class="s1">background-color: red !important;</span>
+      <span class="s1">box-shadow: 0 0 20px red;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">.flash {</span>
+      <span class="s1">animation: flash 0.6s ease 3;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@keyframes flash {</span>
+      <span class="s1">0%, 100% { opacity: 1; }</span>
+      <span class="s1">50% { opacity: 0; }</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#result-message {</span>
+      <span class="s1">font-size: 1.8em;</span>
+      <span class="s1">margin-top: 30px;</span>
+      <span class="s1">display: none;</span>
+      <span class="s1">position: absolute;</span>
+      <span class="s1">top: 45%;</span>
+      <span class="s1">left: 50%;</span>
+      <span class="s1">transform: translate(-50%, -50%);</span>
+      <span class="s1">z-index: 9;</span>
+      <span class="s1">animation: pulse 1s infinite alternate;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@keyframes pulse {</span>
+      <span class="s1">from { transform: translate(-50%, -50%) scale(1); }</span>
+      <span class="s1">to { transform: translate(-50%, -50%) scale(1.1); }</span>
+    <span class="s1">}</span>
+
+    <span class="s1">#footer-info {</span>
+      <span class="s1">font-size: 13px;</span>
+      <span class="s1">color: #ccc;</span>
+      <span class="s1">margin-top: 25px;</span>
+      <span class="s1">display: flex;</span>
+      <span class="s1">align-items: center;</span>
+      <span class="s1">justify-content: center;</span>
+      <span class="s1">column-gap: 60px;</span>
+    <span class="s1">}</span>
+  <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+<span class="s0">&lt;video </span><span class="s2">autoplay loop muted id</span><span class="s3">=&quot;intro-video&quot;</span><span class="s0">&gt;&lt;source </span><span class="s2">src</span><span class="s3">=&quot;intro.mp4&quot; </span><span class="s2">type</span><span class="s3">=&quot;video/mp4&quot;</span><span class="s0">&gt;&lt;/video&gt;</span>
+<span class="s0">&lt;video </span><span class="s2">autoplay loop muted id</span><span class="s3">=&quot;message-video&quot;</span><span class="s0">&gt;&lt;source </span><span class="s2">src</span><span class="s3">=&quot;message.mp4&quot; </span><span class="s2">type</span><span class="s3">=&quot;video/mp4&quot;</span><span class="s0">&gt;&lt;/video&gt;</span>
+<span class="s0">&lt;video </span><span class="s2">autoplay loop muted id</span><span class="s3">=&quot;game-video&quot;</span><span class="s0">&gt;&lt;source </span><span class="s2">src</span><span class="s3">=&quot;game.mp4&quot; </span><span class="s2">type</span><span class="s3">=&quot;video/mp4&quot;</span><span class="s0">&gt;&lt;/video&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;centered&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;Carte Pixeles sin fondo.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Carta&quot; </span><span class="s2">class</span><span class="s3">=&quot;envelope&quot; </span><span class="s2">id</span><span class="s3">=&quot;envelope&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;btn-pixel&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;openMessage()&quot;</span><span class="s0">&gt;</span><span class="s1">READ LETTER</span><span class="s0">&lt;/button&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;message-box&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;p&gt;</span>
+            <span class="s0">&lt;strong&gt;</span><span class="s1">📡Message from Earth</span><span class="s0">&lt;/strong&gt;&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">Hello crew,</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">We have found a big problem in the spaceship. Something has broken the main computer. The ship has started a countdown to explode!</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">You have </span><span class="s0">&lt;strong&gt;</span><span class="s1">15 minutes</span><span class="s0">&lt;/strong&gt; </span><span class="s1">to stop the countdown and escape.</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">To do this, you must correct 10 sentences in English. A virus has changed the sentences. You have to fix them!</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">If you make a mistake, you will lose time. Be fast and be careful.</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s1">You have trained for this. Now it’s your mission.</span><span class="s0">&lt;br&gt;&lt;br&gt;</span>
+            <span class="s0">&lt;strong&gt;</span><span class="s1">Good luck!</span><span class="s0">&lt;/strong&gt;</span>
+        <span class="s0">&lt;/p&gt;</span>
+        <span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;start-button&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;startGame()&quot;</span><span class="s0">&gt;</span><span class="s1">START</span><span class="s0">&lt;/button&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;game-container&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;counter&quot;</span><span class="s0">&gt;</span><span class="s1">0/10</span><span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;h1&gt;</span><span class="s1">Escape From The Spaceship</span><span class="s0">&lt;/h1&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;timer&quot;</span><span class="s0">&gt;</span><span class="s1">15:00</span><span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;light&quot;</span><span class="s0">&gt;&lt;/div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;phrase-box&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;p </span><span class="s2">id</span><span class="s3">=&quot;phrase&quot;</span><span class="s0">&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;text&quot; </span><span class="s2">id</span><span class="s3">=&quot;answer&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;Correct the sentence&quot; </span><span class="s0">/&gt;</span>
+            <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;submit&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;checkAnswer()&quot;</span><span class="s0">&gt;</span><span class="s1">Submit</span><span class="s0">&lt;/button&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;footer-info&quot;</span><span class="s0">&gt;&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;result-message&quot;</span><span class="s0">&gt;&lt;/div&gt;</span>
+<span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;restart-button&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;location.reload()&quot;</span><span class="s0">&gt;</span><span class="s1">Volver a jugar</span><span class="s0">&lt;/button&gt;</span>
+<span class="s0">&lt;audio </span><span class="s2">id</span><span class="s3">=&quot;success-sound&quot; </span><span class="s2">src</span><span class="s3">=&quot;success.mp3&quot;</span><span class="s0">&gt;&lt;/audio&gt;</span>
+<span class="s0">&lt;audio </span><span class="s2">id</span><span class="s3">=&quot;error-sound&quot; </span><span class="s2">src</span><span class="s3">=&quot;error.mp3&quot;</span><span class="s0">&gt;&lt;/audio&gt;</span>
+<span class="s0">&lt;audio </span><span class="s2">id</span><span class="s3">=&quot;alarm-sound&quot; </span><span class="s2">src</span><span class="s3">=&quot;alarm.mp3&quot; </span><span class="s2">loop</span><span class="s0">&gt;&lt;/audio&gt;</span>
+<span class="s0">&lt;audio </span><span class="s2">id</span><span class="s3">=&quot;win-sound&quot; </span><span class="s2">src</span><span class="s3">=&quot;win.mp3&quot;</span><span class="s0">&gt;&lt;/audio&gt;</span>
+<span class="s0">&lt;audio </span><span class="s2">id</span><span class="s3">=&quot;fail-sound&quot; </span><span class="s2">src</span><span class="s3">=&quot;fail.mp3&quot;</span><span class="s0">&gt;&lt;/audio&gt;</span>
+<span class="s0">&lt;script&gt;</span>
+  <span class="s1">const phrases = [</span>
+    <span class="s1">{ wrong: &quot;She have ate the sandwich.&quot;, correct: &quot;She has eaten the sandwich.&quot; },</span>
+    <span class="s1">{ wrong: &quot;We has visited the moon.&quot;, correct: &quot;We have visited the moon.&quot; },</span>
+    <span class="s1">{ wrong: &quot;They have find a new planet.&quot;, correct: &quot;They have found a new planet.&quot; },</span>
+    <span class="s1">{ wrong: &quot;He have written a report.&quot;, correct: &quot;He has written a report.&quot; },</span>
+    <span class="s1">{ wrong: &quot;I has never see an alien.&quot;, correct: &quot;I have never seen an alien.&quot; },</span>
+    <span class="s1">{ wrong: &quot;You have broke the engine.&quot;, correct: &quot;You have broken the engine.&quot; },</span>
+    <span class="s1">{ wrong: &quot;The robot has clean the room.&quot;, correct: &quot;The robot has cleaned the room.&quot; },</span>
+    <span class="s1">{ wrong: &quot;We has just arrive to the spaceship.&quot;, correct: &quot;We have just arrived to the spaceship.&quot; },</span>
+    <span class="s1">{ wrong: &quot;She has forgot her helmet.&quot;, correct: &quot;She has forgotten her helmet.&quot; },</span>
+    <span class="s1">{ wrong: &quot;They has already complete the task.&quot;, correct: &quot;They have already completed the task.&quot; }</span>
+  <span class="s1">];</span>
+
+  <span class="s1">let timeLeft = 15 * 60;</span>
+  <span class="s1">let currentPhrase = 0;</span>
+  <span class="s1">let correctCount = 0;</span>
+  <span class="s1">let shuffledPhrases = [];</span>
+  <span class="s1">let timer;</span>
+  <span class="s1">let alarmStarted = false;</span>
+
+  <span class="s1">const phraseElement = document.getElementById(&quot;phrase&quot;);</span>
+  <span class="s1">const input = document.getElementById(&quot;answer&quot;);</span>
+  <span class="s1">const light = document.getElementById(&quot;light&quot;);</span>
+  <span class="s1">const timerDisplay = document.getElementById(&quot;timer&quot;);</span>
+  <span class="s1">const resultMessage = document.getElementById(&quot;result-message&quot;);</span>
+  <span class="s1">const restartButton = document.getElementById(&quot;restart-button&quot;);</span>
+  <span class="s1">const counter = document.getElementById(&quot;counter&quot;);</span>
+  <span class="s1">const footerInfo = document.getElementById(&quot;footer-info&quot;);</span>
+
+  <span class="s1">const successSound = document.getElementById(&quot;success-sound&quot;);</span>
+  <span class="s1">const errorSound = document.getElementById(&quot;error-sound&quot;);</span>
+  <span class="s1">const alarmSound = document.getElementById(&quot;alarm-sound&quot;);</span>
+  <span class="s1">const winSound = document.getElementById(&quot;win-sound&quot;);</span>
+  <span class="s1">const failSound = document.getElementById(&quot;fail-sound&quot;);</span>
+
+  <span class="s1">function openMessage() {</span>
+    <span class="s1">document.getElementById('intro-video').style.display = 'none';</span>
+    <span class="s1">document.getElementById('message-video').style.display = 'block';</span>
+    <span class="s1">document.getElementById('envelope').style.display = 'none';</span>
+    <span class="s1">document.querySelector('.btn-pixel').style.display = 'none';</span>
+    <span class="s1">document.getElementById('message-box').style.display = 'block';</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function startGame() {</span>
+    <span class="s1">document.getElementById('message-box').style.display = 'none';</span>
+    <span class="s1">document.getElementById('game-container').style.display = 'flex';</span>
+    <span class="s1">document.getElementById('message-video').style.display = 'none';</span>
+    <span class="s1">document.getElementById('game-video').style.display = 'block';</span>
+    <span class="s1">shufflePhrases();</span>
+    <span class="s1">displayPhrase();</span>
+    <span class="s1">startTimer();</span>
+    <span class="s1">updateFooter();</span>
+    <span class="s1">setInterval(updateFooter, 1000);</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function shufflePhrases() {</span>
+    <span class="s1">shuffledPhrases = phrases.sort(() =&gt; 0.5 - Math.random());</span>
+    <span class="s1">currentPhrase = 0;</span>
+    <span class="s1">correctCount = 0;</span>
+    <span class="s1">counter.textContent = `0/10`;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function displayPhrase() {</span>
+    <span class="s1">phraseElement.textContent = shuffledPhrases[currentPhrase].wrong;</span>
+    <span class="s1">input.value = '';</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function updateFooter() {</span>
+    <span class="s1">const now = new Date();</span>
+    <span class="s1">const time = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});</span>
+    <span class="s1">const date = now.toLocaleDateString();</span>
+    <span class="s1">footerInfo.textContent = `\n\n\n⚡️ ${time}  ${date}`;</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function checkAnswer() {</span>
+  <span class="s1">const userAnswer = input.value.trim();</span>
+  <span class="s1">const correctAnswer = shuffledPhrases[currentPhrase].correct;</span>
+  <span class="s1">if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {</span>
+    <span class="s1">correctCount++;</span>
+    <span class="s1">counter.textContent = `${correctCount}/10`;</span>
+    <span class="s1">counter.classList.add(&quot;counter-flash&quot;); // &lt;- EFECTO DE PARPADEO VERDE</span>
+    <span class="s1">successSound.play();</span>
+    <span class="s1">light.className = &quot;green-glow&quot;;</span>
+    <span class="s1">phraseElement.classList.add(&quot;flash&quot;);</span>
+    <span class="s1">setTimeout(() =&gt; {</span>
+      <span class="s1">counter.classList.remove(&quot;counter-flash&quot;);</span>
+      <span class="s1">light.className = &quot;&quot;;</span>
+      <span class="s1">phraseElement.classList.remove(&quot;flash&quot;);</span>
+      <span class="s1">if (correctCount === 10) {</span>
+        <span class="s1">alarmSound.pause();</span>
+        <span class="s1">alarmSound.currentTime = 0;</span>
+        <span class="s1">endGame(true);</span>
+      <span class="s1">} else {</span>
+        <span class="s1">currentPhrase++;</span>
+        <span class="s1">displayPhrase();</span>
+      <span class="s1">}</span>
+    <span class="s1">}, 1000);</span>
+  <span class="s1">} else {</span>
+    <span class="s1">errorSound.play();</span>
+    <span class="s1">light.className = &quot;red-glow&quot;;</span>
+    <span class="s1">phraseElement.classList.add(&quot;flash&quot;);</span>
+    <span class="s1">timeLeft = Math.max(0, timeLeft - 10);</span>
+    <span class="s1">timerDisplay.style.color = &quot;red&quot;;</span>
+    <span class="s1">timerDisplay.style.fontSize = &quot;2.5em&quot;;</span>
+    <span class="s1">setTimeout(() =&gt; {</span>
+      <span class="s1">light.className = &quot;&quot;;</span>
+      <span class="s1">phraseElement.classList.remove(&quot;flash&quot;);</span>
+      <span class="s1">timerDisplay.style.color = &quot;white&quot;;</span>
+      <span class="s1">timerDisplay.style.fontSize = &quot;2em&quot;;</span>
+    <span class="s1">}, 3000);</span>
+  <span class="s1">}</span>
+<span class="s1">}</span>
+
+  <span class="s1">function startTimer() {</span>
+    <span class="s1">timer = setInterval(() =&gt; {</span>
+      <span class="s1">let minutes = Math.floor(timeLeft / 60);</span>
+      <span class="s1">let seconds = timeLeft % 60;</span>
+      <span class="s1">if (timeLeft &lt;= 15 &amp;&amp; !alarmStarted) {</span>
+        <span class="s1">timerDisplay.classList.add('red-flash');</span>
+        <span class="s1">alarmSound.play();</span>
+        <span class="s1">alarmStarted = true;</span>
+      <span class="s1">}</span>
+      <span class="s1">timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;</span>
+      <span class="s1">if (timeLeft &lt;= 0) {</span>
+        <span class="s1">clearInterval(timer);</span>
+        <span class="s1">alarmSound.pause();</span>
+        <span class="s1">alarmSound.currentTime = 0;</span>
+        <span class="s1">endGame(false);</span>
+      <span class="s1">}</span>
+      <span class="s1">timeLeft--;</span>
+    <span class="s1">}, 1000);</span>
+  <span class="s1">}</span>
+
+  <span class="s1">function endGame(success) {</span>
+    <span class="s1">clearInterval(timer);</span>
+    <span class="s1">alarmSound.pause();</span>
+    <span class="s1">alarmSound.currentTime = 0;</span>
+    <span class="s1">document.getElementById('game-container').style.display = 'none';</span>
+    <span class="s1">counter.style.display = 'none';</span>
+    <span class="s1">resultMessage.textContent = success ? &quot;✅ Mission complete!&quot; : &quot;❌ Mission failed...&quot;;</span>
+    <span class="s1">resultMessage.style.color = success ? &quot;lime&quot; : &quot;red&quot;;</span>
+    <span class="s1">resultMessage.style.display = 'block';</span>
+    <span class="s1">if (success) winSound.play(); else failSound.play();</span>
+    <span class="s1">setTimeout(() =&gt; {</span>
+      <span class="s1">resultMessage.style.display = 'none';</span>
+      <span class="s1">restartButton.style.display = 'block';</span>
+    <span class="s1">}, 8000);</span>
+  <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>
